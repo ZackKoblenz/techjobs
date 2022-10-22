@@ -244,7 +244,16 @@ public class TestTaskThree extends AbstractTest {
         Field anotherJobIdField = Job.class.getDeclaredField("id");
         anotherJobIdField.setAccessible(true);
         anotherJobIdField.set(anotherJob, getJobId(job));
-        assertTrue(job.equals(anotherJob));
+        System.out.println(job.getId() + job.getName() + job.getCoreCompetency() + job.getLocation() + job.getPositionType() + job.getEmployer());
+        System.out.println(anotherJob.getId() + anotherJob.getName() + anotherJob.getCoreCompetency() + anotherJob.getLocation() + anotherJob.getPositionType() + anotherJob.getEmployer());
+        System.out.println(job.equals(anotherJob));
+        System.out.println(job.getId() == anotherJob.getId());
+        System.out.println(job.getName() == anotherJob.getName());
+        System.out.println(job.getLocation() == anotherJob.getLocation());
+        System.out.println(job.getCoreCompetency() == anotherJob.getCoreCompetency());
+        System.out.println(job.getPositionType() == anotherJob.getPositionType());
+        System.out.println(job.getEmployer() == anotherJob.getEmployer());
+        assertEquals(job, anotherJob);
     }
 
     @Test
