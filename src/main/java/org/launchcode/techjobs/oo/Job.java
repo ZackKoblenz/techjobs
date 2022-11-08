@@ -51,19 +51,19 @@ public class Job {
         if (this.name == null && this.employer == null && this.location == null && this.positionType == null && this.coreCompetency == null){
             return "OOPS! This job does not seem to exist.";
         }
-        if (this.name == null){
+        if (this.name.isEmpty()){
             this.name = data;
         }
-        if (this.employer == null){
+        if (this.employer.toString().isEmpty()){
             this.employer = new Employer(data);
         }
-        if (this.location == null){
+        if (this.location.toString().isEmpty()){
             this.location = new Location(data);
         }
-        if (this.positionType == null){
+        if (this.positionType.toString().isEmpty()){
             this.positionType = new PositionType(data);
         }
-        if (this.coreCompetency == null){
+        if (this.coreCompetency.toString().isEmpty()){
             this.coreCompetency = new CoreCompetency(data);
         }
 
@@ -84,7 +84,7 @@ public class Job {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Job job = (Job) o;
-        return id == job.id && Objects.equals(name, job.name) && Objects.equals(employer, job.employer) && Objects.equals(location, job.location) && Objects.equals(positionType, job.positionType) && Objects.equals(coreCompetency, job.coreCompetency);
+        return id == job.id;
     }
 
 
@@ -95,7 +95,7 @@ public class Job {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, employer, location, positionType, coreCompetency);
+        return Objects.hash(id);
     }
 
     public Employer getEmployer() {

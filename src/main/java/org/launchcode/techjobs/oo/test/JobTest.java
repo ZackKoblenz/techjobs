@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.oo.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -25,15 +26,25 @@ public class JobTest {
 
         Job productTester2 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
 
-        assertTrue("Name Test Failed", productTester.getName().equals("Product tester"));
+        Assert.assertTrue(productTester.getName() instanceof String);
 
-        assertTrue("Employer Test Failed", productTester.getEmployer().toString().equals("ACME"));
+        Assert.assertTrue(productTester.getEmployer() instanceof Employer);
 
-        assertTrue("Location Test Failed", productTester.getLocation().toString().equals("Desert"));
+        Assert.assertTrue(productTester.getLocation() instanceof Location);
 
-        assertTrue("Position Type Test Failed", productTester.getPositionType().toString().equals("Quality Control"));
+        Assert.assertTrue(productTester.getPositionType() instanceof PositionType);
 
-        assertTrue("Core Competency Test Failed", productTester.getCoreCompetency().toString().equals("Persistence"));
+        Assert.assertTrue(productTester.getCoreCompetency() instanceof CoreCompetency);
+
+        Assert.assertEquals(productTester2.getCoreCompetency().toString(), productTester.getCoreCompetency().toString());
+
+        Assert.assertEquals(productTester2.getName(), productTester.getName());
+
+        Assert.assertEquals(productTester2.getEmployer().toString(), productTester.getEmployer().toString());
+
+        Assert.assertEquals(productTester2.getLocation().toString(), productTester.getLocation().toString());
+
+        Assert.assertEquals(productTester2.getPositionType().toString(), productTester.getPositionType().toString());
     }
 
     @Test
@@ -47,18 +58,44 @@ public class JobTest {
 
     @Test
     public void testToStringStartsAndEndsWithNewLine() {
-        Job streamer = new Job();
-        assertEquals(streamer.toString().charAt(streamer.toString().length() - 1), "\n");
+        Job streamer = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        Assert.assertEquals(streamer.toString().charAt(0), '\n');
+        Assert.assertEquals(streamer.toString().charAt(119),'\n');
     }
 
     @Test
     public void testToStringContainsCorrectLabelsAndData() {
-
+        Job streamer = new Job();
+        Job youTuber = new Job();
+        Assert.assertEquals(streamer.toString(), youTuber.toString());
     }
 
     @Test
     public void testToStringHandlesEmptyField() {
-        Job streamer = new Job();
+        Job streamer = new Job("", new Employer("Employer"), new Location("Location"), new PositionType(""), new CoreCompetency("Core Competency"));
+        Assert.assertEquals(streamer.toString(), ("\n" +
+                "ID: " + streamer.getId() + "\n" +
+                "Name: " + "Data not available" + "\n" +
+                "Employer: " + "Employer" + "\n" +
+                "Location: " + "Location" + "\n" +
+                "Position Type: " + "Data not available" + "\n" +
+                "Core Competency: " + "Core Competency" + "\n"));
+    }
 
+    @Test
+    public void testJobsForEquality() {
+        Job streamer = new Job(
+                "Product tester",
+                new Employer("ACME"),
+                new Location("Desert"),
+                new PositionType("Quality control"),
+                new CoreCompetency("Persistence"));
+        Job streamer2 = new Job(
+                "Product tester",
+                new Employer("ACME"),
+                new Location("Desert"),
+                new PositionType("Quality control"),
+                new CoreCompetency("Persistence"));
+        Assert.assertFalse(streamer.getId() == streamer2.getId());
     }
 }
